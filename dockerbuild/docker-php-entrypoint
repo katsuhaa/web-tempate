@@ -9,6 +9,7 @@ if [ -n "${GROUP_ID}" ]; then
 fi
 
 if [ ! -d /var/www/html/vendor/bin ]; then
+    composer -n require symfony/console
     composer install \
         --no-scripts \
         --no-autoloader \
