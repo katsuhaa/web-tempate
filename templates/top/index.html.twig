@@ -5,7 +5,7 @@
 {% block body %}
     <style>
      .iisor-top-contents {
-         margin: 1em auto;
+         margin: 0 auto;
          max-width: 800px;
          width: 95%;
          font: 18px/1.5 sans-serif;
@@ -13,8 +13,8 @@
      .iisor-top-contents h1 {
          font-size: 128px;
          font-weight: 800;
-         margin-top: 20px;
-         margin-bottom: 20px;
+         margin-top: 40px;
+         margin-bottom: 40px;
      }
      .iisor-top-contents .row {
          margin: 50px 20px;
@@ -30,54 +30,61 @@
          color: #595757;
      }
      .iisor-top-contents img {
-         width: 100%;
+         width: auto;
          margin: 20px 20px;
      }
     </style>
     <div class="iisor-top-contents">
         <h1>
-            <img src="public/image/iisor-web-logo.svg" />
+            <a href="{{ url('app_top') }}">
+                <img src="/public/image/iisor-web-logo.svg" />
+            </a>
         </h1>
 
         <div class="row iisor-top-kiban">
             <div class="col-4">
-                <a href="">
-                    <div class="iisor-top-contents-moji">Main</div>
-                    <p>メイン基盤</p>
+                <a href="{{ url('app_kiban_index', {'various':'main'}) }}">
+                    <div class="iisor-top-contents-moji">Main</div> 
+                    <div class="iisor-top-contents-moji">{{ kosu.main }}</div>
+                    <p>メイン基板</p>
                 </a>
             </div>
             <div class="col-4">
-                <a href="">
+                <a href="{{ url('app_kiban_index', {'various':'sub'}) }}">
                     <div class="iisor-top-contents-moji">Sub</div>
-                    <p>サブ基盤</p>
+                    <div class="iisor-top-contents-moji">{{ kosu.sub }}</div>
+                    <p>サブ基板</p>
                 </a>
             </div>
             <div class="col-4">
-                <a href="">
+                <a href="{{ url('app_kiban_index', {'various':'wl'}) }}">
                     <div class="iisor-top-contents-moji">WL</div>
-                    <p>ワイヤレス基盤</p>
+                    <div class="iisor-top-contents-moji">{{ kosu.wl }}</div>
+                    <p>ワイヤレス基板</p>
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-4">
                 <a href="">
-                    <img src="public/image/en.svg" />
+                    <img src="/public/image/en.svg" />
                     <p>料金が知りたい</p>
                 </a>
             </div>
             <div class="col-4">
                 <a href="">
-                    <img src="public/image/kago.svg" />
+                    <img src="/public/image/kago.svg" />
                     <p>納期が知りたい</p>
                 </a>
             </div>
             <div class="col-4">
-                <a href="">
-                    <img src="public/image/man.svg" />
+                <a href="mailto:送信先メールアドレス?subject=件名">
+                    <img src="/public/image/man.svg" />
                     <p>お問い合わせ</p>
                 </a>
             </div>
         </div>
     </div>
 {% endblock %}
+
+

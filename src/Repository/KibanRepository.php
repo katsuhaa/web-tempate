@@ -39,6 +39,20 @@ class KibanRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Kiban[] Returns an array of Kiban objects
+     */
+    public function findByVariousField($value): array
+    {
+        return $this->createQueryBuilder('k')
+                    ->andWhere('k.various = :val')
+                    ->setParameter('val', $value)
+                    ->orderBy('k.id', 'ASC')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Kiban[] Returns an array of Kiban objects
 //     */
