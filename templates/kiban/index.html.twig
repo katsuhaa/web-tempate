@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kiban index{% endblock %}
+
+{% block body %}
+    <style>
+     .kiban-body {
+         margin: 1em auto;
+         max-width: 800px;
+         width: 95%;
+         font: 18px/1.5 sans-serif;
+     }
+     .kiban-body h1 {
+         margin-top: 40px;
+         margin-bottom: 40px;
+     }
+     .kiban-body img {
+         width: auto;
+         margin: 20px 20px;
+     }
+    </style>
+
+    <div class="kiban-body">
+        <h1>
+            <a href="{{ url('app_top') }}">
+                <img src="/public/image/iisor-web-logo.svg" />
+            </a>
+            <h1>{{ various }}</h1>
+        </h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>品番など識別名</th>
+                    <th>基板種類</th>
+                    <th>発注日</th>
+                    <th>納入予定日</th>
+                    <th>納入日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if kibans|length > 0 %}
+                    {% for kiban in kibans %}
+                        <tr>
+                            <td>{{ kiban.id }}</td>
+                            <td>{{ kiban.name }}</td>
+                            <td>{{ kiban.various }}</td>
+                            <td>{{ kiban.orderData ? kiban.orderData|date('Y-m-d') : '' }}</td>
+                            <td>{{ kiban.dueDate ? kiban.dueDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ kiban.stockDate ? kiban.stockDate|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_kiban_show', {'id': kiban.id}) }}">詳細</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_kiban_new') }}">新規基盤登録</a>
+    </div>
+{% endblock %}

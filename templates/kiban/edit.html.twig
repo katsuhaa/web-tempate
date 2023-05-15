@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}iiSor WEB 基板管理データ編集{% endblock %}
+
+{% block body %}
+    <style>
+     .kiban-body {
+         margin: 2em auto;
+         max-width: 800px;
+         width: 95%;
+         font: 18px/1.5 sans-serif;
+     }
+     .kiban-body h1 {
+         margin-top: 40px;
+         margin-bottom: 40px;
+     }
+     .kiban-body img {
+         width: auto;
+         margin: 20px 20px;
+     }
+    </style>
+    <div class="kiban-body">
+        <a href="{{ url('app_top') }}">
+            <img src="/public/image/iisor-web-logo.svg" />
+        </a>
+        <h1>iiSor 管理データ編集</h1>
+
+        {{ include('kiban/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_kiban_index') }}">一覧に戻る</a>
+
+        {{ include('kiban/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
