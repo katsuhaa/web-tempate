@@ -32,7 +32,6 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>品番など識別名</th>
                     <th>基板種類</th>
                     <th>発注日</th>
                     <th>納入予定日</th>
@@ -45,7 +44,6 @@
                     {% for kiban in kibans %}
                         <tr>
                             <td>{{ kiban.id }}</td>
-                            <td>{{ kiban.name }}</td>
                             <td>{{ kiban.various }}</td>
                             <td>{{ kiban.orderData ? kiban.orderData|date('Y-m-d') : '' }}</td>
                             <td>{{ kiban.dueDate ? kiban.dueDate|date('Y-m-d') : '' }}</td>

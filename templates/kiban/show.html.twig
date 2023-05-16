@@ -32,10 +32,6 @@
                     <td>{{ kiban.id }}</td>
                 </tr>
                 <tr>
-                    <th>識別名 品番など</th>
-                    <td>{{ kiban.name }}</td>
-                </tr>
-                <tr>
                     <th>基板種類</th>
                     <td>{{ kiban.various }}</td>
                 </tr>
@@ -50,6 +46,46 @@
                 <tr>
                     <th>在庫日</th>
                     <td>{{ kiban.stockDate ? kiban.stockDate|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>パーツ番号</th>
+                    <td>{{ kiban.partsno }}</td>
+                </tr>
+                <tr>
+                    <th>シリアル番号</th>
+                    <td>{{ kiban.serialno }}</td>
+                </tr>
+                <tr>
+                    <th>良品・不良品</th>
+                    <td>{{ kiban.goodproduct }}</td>
+                </tr>
+                <tr>
+                    <th>振替可否</th>
+                    <td>{{ kiban.furikae }}</td>
+                </tr>
+                <tr>
+                    <th>使用状況</th>
+                    <td>{{ kiban.status }}</td>
+                </tr>
+                <tr>
+                    <th>NXT担当者</th>
+                    <td>{{ kiban.nxtperson }}</td>
+                </tr>
+                <tr>
+                    <th>割り当て部署</th>
+                    <td>{{ kiban.assignee }}</td>
+                </tr>
+                <tr>
+                    <th>割り当て担当者</th>
+                    <td>{{ kiban.person }}</td>
+                </tr>
+                <tr>
+                    <th>割り当て済み</th>
+                    <td>{{ kiban.assigned }}</td>
+                </tr>
+                <tr>
+                    <th>備考</th>
+                    <td>{{ kiban.memo }}</td>
                 </tr>
             </tbody>
         </table>
