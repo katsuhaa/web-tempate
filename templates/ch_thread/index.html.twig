@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChThread index{% endblock %}
+
+{% block body %}
+    <h1>ChThread index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Thread_title</th>
+                <th>Parent_id</th>
+                <th>Create_date</th>
+                <th>Update_date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ch_thread in ch_threads %}
+            <tr>
+                <td>{{ ch_thread.id }}</td>
+                <td>{{ ch_thread.threadTitle }}</td>
+                <td>{{ ch_thread.parentId }}</td>
+                <td>{{ ch_thread.createDate ? ch_thread.createDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ch_thread.updateDate ? ch_thread.updateDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_ch_thread_show', {'id': ch_thread.id}) }}">show</a>
+                    <a href="{{ path('app_ch_thread_edit', {'id': ch_thread.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ch_thread_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChPost index{% endblock %}
+
+{% block body %}
+    <h1>ChPost index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>No</th>
+                <th>Postdata</th>
+                <th>Thread_id</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ch_post in ch_posts %}
+            <tr>
+                <td>{{ ch_post.id }}</td>
+                <td>{{ ch_post.no }}</td>
+                <td>{{ ch_post.postdata }}</td>
+                <td>{{ ch_post.threadId }}</td>
+                <td>{{ ch_post.date ? ch_post.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_ch_post_show', {'id': ch_post.id}) }}">show</a>
+                    <a href="{{ path('app_ch_post_edit', {'id': ch_post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ch_post_new') }}">Create new</a>
+{% endblock %}

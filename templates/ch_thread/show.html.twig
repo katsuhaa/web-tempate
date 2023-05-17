@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChThread{% endblock %}
+
+{% block body %}
+    <h1>ChThread</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ch_thread.id }}</td>
+            </tr>
+            <tr>
+                <th>Thread_title</th>
+                <td>{{ ch_thread.threadTitle }}</td>
+            </tr>
+            <tr>
+                <th>Parent_id</th>
+                <td>{{ ch_thread.parentId }}</td>
+            </tr>
+            <tr>
+                <th>Create_date</th>
+                <td>{{ ch_thread.createDate ? ch_thread.createDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Update_date</th>
+                <td>{{ ch_thread.updateDate ? ch_thread.updateDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ch_thread_index') }}">back to list</a>
+
+    <a href="{{ path('app_ch_thread_edit', {'id': ch_thread.id}) }}">edit</a>
+
+    {{ include('ch_thread/_delete_form.html.twig') }}
+{% endblock %}

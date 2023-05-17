@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ChPost{% endblock %}
+
+{% block body %}
+    <h1>ChPost</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ch_post.id }}</td>
+            </tr>
+            <tr>
+                <th>No</th>
+                <td>{{ ch_post.no }}</td>
+            </tr>
+            <tr>
+                <th>Postdata</th>
+                <td>{{ ch_post.postdata }}</td>
+            </tr>
+            <tr>
+                <th>Thread_id</th>
+                <td>{{ ch_post.threadId }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ ch_post.date ? ch_post.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ch_post_index') }}">back to list</a>
+
+    <a href="{{ path('app_ch_post_edit', {'id': ch_post.id}) }}">edit</a>
+
+    {{ include('ch_post/_delete_form.html.twig') }}
+{% endblock %}

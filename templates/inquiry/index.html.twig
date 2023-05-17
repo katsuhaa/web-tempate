@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}iiSor-WEB お問い合わせ一覧{% endblock %}
+
+{% block body %}
+    <div class="kiban-body">
+        <h1>
+            <a href="{{ url('app_top') }}">
+                <img src="/public/image/iisor-web-logo.svg" />
+            </a>
+            <h1>お問い合わせ スレッド一覧</h1>
+        </h1>
+        <div class="">
+            {% if ch_threads|length > 0 %}
+                <ul>
+                    {% for thread in ch_threads %}
+                        <a href="{{ path('app_inquiry_thread', {'id': thread.id}) }}">
+                            <li>{{ thread.threadTitle }} - {{ thread.name ? thread.name : 'anonymous' }} - {{ thread.createDate ? thread.createDate|date('Y/m/d(D) H:i:s') : '' }}</li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div colspan="7">no records found</div>
+            {% endif %}
+        </div>
+
+        {{ form_start(form) }}
+
+            <div class="row mt-2">
+                <div class="float-start">
+                    <button class="btn align-middle border border-dark p-0 bg-light ">{{ button_label|default('新規お問い合わせスレッド作成') }}</button>
+                    <label class="align-middle">名前</label>
+                    {{ form_widget(form.name, {attr : { class : 'align-middle' }}) }}
+                </div>
+            </div>
+            <div class="inquiry-new-thread-title">
+                {{ form_widget(form.thread_title) }}
+            </div>
+
+            <div class="d-none">
+                {{ form_widget(form.parent_id) }}
+                {{ form_widget(form.create_date) }}
+                {{ form_widget(form.update_date) }}
+                {{ form_widget(form.metadata) }}
+            </div>
+        {{ form_end(form) }}
+{% endblock %}

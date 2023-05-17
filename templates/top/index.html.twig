@@ -1,39 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wellcome to IISOR WEB{% endblock %}
+{% block title %}Wellcome to iiSor WEB{% endblock %}
 
 {% block body %}
-    <style>
-     .iisor-top-contents {
-         margin: 0 auto;
-         max-width: 800px;
-         width: 95%;
-         font: 18px/1.5 sans-serif;
-     }
-     .iisor-top-contents h1 {
-         font-size: 128px;
-         font-weight: 800;
-         margin-top: 40px;
-         margin-bottom: 40px;
-     }
-     .iisor-top-contents .row {
-         margin: 50px 20px;
-         text-align: center;
-     }
-     .iisor-top-contents .row .col-4 {
-         text-align: center;
-     }
-     .iisor-top-contents .iisor-top-contents-moji {
-         font-size: 90px;
-         font-weight: 700;
-         font-style: italic;
-         color: #595757;
-     }
-     .iisor-top-contents img {
-         width: auto;
-         margin: 20px 20px;
-     }
-    </style>
     <div class="iisor-top-contents">
         <h1>
             <a href="{{ url('app_top') }}">
@@ -78,7 +47,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="mailto:送信先メールアドレス?subject=件名">
+                <a href="{{ url('app_inquiry') }}">
                     <img src="/public/image/man.svg" />
                     <p>お問い合わせ</p>
                 </a>

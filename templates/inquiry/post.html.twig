@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}お問い合わせ{% endblock %}
+
+{% block body %}
+    <div class="kiban-body">
+        <h1>
+            <a href="{{ url('app_top') }}">
+                <img src="/public/image/iisor-web-logo.svg" />
+            </a>
+            <h1> {{ ch_thread.threadTitle }}</h1>
+        </h1>
+        <div>
+            {% if ch_posts|length > 0 %}
+                {% for ch_post in ch_posts %}
+                    <div class="row ch_post-title">
+                        {{ ch_post.no }} - {{ ch_post.name ? ch_post.name : 'あにょにもすさん' }} - {{ ch_post.date ? ch_post.date|date('Y/m/d(D) H:i:s') : '' }}
+                    </div>
+                    <div class="row ch_post-post">
+                        {{ ch_post.postdata }}
+                    </div>
+                    <form method="post" action="{{ path('app_inquiry_post_delete', {'id': ch_post.id}) }}" onsubmit="return confirm('この投稿を削除しますか？');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ch_post.id) }}">
+                        <button class="btn">削除</button>
+                    </form>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">まだ投稿はありません。</td>
+                </tr>
+            {% endif %}
+        </div>
+        <div class="ch_post-newpost my-4">
+            {{ form_start(form) }}
+                <div class="ch_post-newpost-header row mt-2">
+                    <div class="float-start">
+                        <button class="btn align-middle border border-dark p-0 bg-light">{{ button_label|default('書き込む') }}</button>
+                        <label class="align-middle">名前</label>
+                        {{ form_widget(form.name, {attr : { class : 'align-middle' }}) }}
+                    </div>
+                    <div class="d-none">
+                        {{ form_widget(form.date) }}
+                    </div>
+                </div>
+                <div class="ch_post-newpost-post">
+                    {{ form_widget(form.postdata) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+        {% if ch_thread.parentId is null %}
+            <a href="{{ path('app_inquiry') }}">
+                一覧に戻る
+            </a>
+        {% else %}
+            <a href="{{ path('app_inquiry_thread', {'id': ch_thread.parentId}) }}">
+                一覧に戻る
+            </a>
+        {%  endif %}
+    </div>
+{% endblock %}
+
