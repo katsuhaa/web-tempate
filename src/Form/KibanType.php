@@ -13,29 +13,35 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-
-
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class KibanType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('various', ChoiceType::class, [
+            ->add('various', TextType::class, [
                 'label' => "種別",
-                'choices' => [ 'main' => 'main', 'sub' => 'sub', 'wl' => 'wl' ],
+                'attr' => [
+                    'placeholder' => 'MAIN?? SUB?? WL??',
+                    'list' => 'kiban-various',
+                ],
             ])
             ->add('order_data', DateType::class, [
                 'label' => '発注日',
                 'required' => false,
+                'widget' => 'single_text',
+                'data' => new \DateTime(),
             ])
             ->add('due_date', DateType::class, [
                 'label' => '納入予定日',
                 'required' => false,
+                'widget' => 'single_text',
             ])
             ->add('stock_date', DateType::class, [
                 'label' => '在庫日',
                 'required' => false,
+                'widget' => 'single_text',
             ])
             ->add('partsno', TextType::class, [
                 'label' => 'パーツ番号',
@@ -55,7 +61,7 @@ class KibanType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'label' => '使用状況',
-                'choices' => [ '' => '__unselected', '未使用' => '未使用' ]
+                'choices' => [ '' => null, '未使用' => '未使用' ]
             ])
             ->add('nxtperson', TextType::class, [
                 'label' => 'NXT担当者',
@@ -73,7 +79,7 @@ class KibanType extends AbstractType
                 'label' => '割り当て済み',
                 'required' => false,
             ])
-            ->add('memo', TextType::class, [
+            ->add('memo', TextareaType::class, [
                 'label' => '備考',
                 'required' => false,
             ])

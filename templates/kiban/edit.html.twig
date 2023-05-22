@@ -9,10 +9,88 @@
         </a>
         <h1>iiSor 管理データ編集</h1>
 
-        {{ include('kiban/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ form_start(form) }}
+            <table class="table">
+                <tbody>
+                    {% if kiban.id is not null %}
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ kiban.id }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>基板種類</th>
+                        <td>
+                            {{ form_widget( form.various ) }}
+                            <datalist id="kiban-various">
+                                <option value="MAIN(AH)"></option>
+                                <option value="SUB(AH)"></option>
+                                <option value="WL(AH)"></option>
+                            </datalist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>発注日</th>
+                        <td>{{ form_widget( form.order_data ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>納入予定日</th>
+                        <td>{{ form_widget( form.due_date ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>在庫日</th>
+                        <td>{{ form_widget( form.stock_date ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>パーツ番号</th>
+                        <td>{{ form_widget( form.partsno ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>シリアル番号</th>
+                        <td>{{ form_widget( form.serialno ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>良品・不良品</th>
+                        <td>{{ form_widget( form.goodproduct ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>振替可否</th>
+                        <td>{{ form_widget( form.furikae ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>使用状況</th>
+                        <td>{{ form_widget( form.status ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>NXT担当者</th>
+                        <td>{{ form_widget( form.nxtperson ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>割り当て部署</th>
+                        <td>{{ form_widget( form.assignee ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>割り当て担当者</th>
+                        <td>{{ form_widget( form.person ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>割り当て済み</th>
+                        <td>{{ form_widget( form.assigned ) }}</td>
+                    </tr>
+                    <tr>
+                        <th>備考</th>
+                        <td>{{ form_widget( form.memo ) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn">{{ button_label|default('登録') }}</button>        
+        {{ form_end(form) }}
+        {{ form_errors(form) }}
 
         <a href="{{ path('app_kiban_index') }}">一覧に戻る</a>
 
-        {{ include('kiban/_delete_form.html.twig') }}
+        {% if kiban.id is not null %}
+            {{ include('kiban/_delete_form.html.twig') }}
+        {% endif  %}
     </div>
 {% endblock %}

@@ -1,16 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Kiban{% endblock %}
-
-{% block body %}
-    <div class="kiban-body">
-        <a href="{{ url('app_top') }}">
-            <img src="/public/image/iisor-web-logo.svg" />
-        </a>
-        <h1>iiSor 新規管理データ作成</h1>
-
-        {{ include('kiban/_form.html.twig') }}
-
-        <a href="{{ path('app_kiban_index') }}">back to list</a>
-    </div>
-{% endblock %}
+{{ include('kiban/edit.html.twig') }}
