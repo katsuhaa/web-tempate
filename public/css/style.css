@@ -4,6 +4,9 @@ body {
     color: black;
     background: rgb(226,240,217);
 }
+.table {
+    font-size: 14px;
+}
 .iisor-top-contents {
     margin: 0 auto;
     max-width: 800px;

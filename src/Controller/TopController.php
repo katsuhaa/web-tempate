@@ -19,7 +19,7 @@ class TopController extends AbstractController
         $kosu = [
             'main'=> count($KibanRepository->findByVariousField('main')),
             'sub' => count($KibanRepository->findByVariousField('sub')),
-            'wl' => count($KibanRepository->findByVariousField('wl')),
+            'all' => count($KibanRepository->findall()),
         ];
         return $this->render('top/index.html.twig', [
             'kosu' => $kosu,

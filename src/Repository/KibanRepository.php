@@ -45,8 +45,8 @@ class KibanRepository extends ServiceEntityRepository
     public function findByVariousField($value): array
     {
         return $this->createQueryBuilder('k')
-                    ->andWhere('k.various = :val')
-                    ->setParameter('val', $value)
+                    ->andWhere('k.various like :val')
+                    ->setParameter('val', '%'.$value.'%')
                     ->orderBy('k.id', 'ASC')
                     ->getQuery()
                     ->getResult()

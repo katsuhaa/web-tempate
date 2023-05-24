@@ -38,6 +38,11 @@ class Kiban
     private $stock_date;
 
     /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $update_date;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $partsno;

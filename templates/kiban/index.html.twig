@@ -19,9 +19,11 @@
                 <tr>
                     <th>Id</th>
                     <th>基板種類</th>
-                    <th>発注日</th>
-                    <th>納入予定日</th>
-                    <th>納入日</th>
+                    <th>パーツ番号</th>
+                    <th>シリアル番号</th>
+                    <th>振替可否</th>
+                    <th>使用状況</th>
+                    <th>割当部署担当者</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -31,9 +33,11 @@
                         <tr>
                             <td>{{ kiban.id }}</td>
                             <td>{{ kiban.various }}</td>
-                            <td>{{ kiban.orderData ? kiban.orderData|date('Y-m-d') : '' }}</td>
-                            <td>{{ kiban.dueDate ? kiban.dueDate|date('Y-m-d') : '' }}</td>
-                            <td>{{ kiban.stockDate ? kiban.stockDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ kiban.partsno }}</td>
+                            <td>{{ kiban.serialno }}</td>
+                            <td>{{ kiban.furikae }}</td>
+                            <td>{{ kiban.status }}</td>
+                            <td>{{ kiban.person }}</td>
                             <td>
                                 <a href="{{ path('app_kiban_show', {'id': kiban.id}) }}">詳細</a>
                             </td>
