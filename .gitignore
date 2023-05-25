@@ -1,6 +1,15 @@
 *~
 .DS_Store
 
+/.env
+/.env.test
+/bin/
+/composer.lock
+/migrations
+/phpunit.xml.dist
+/symfony.lock
+/translations
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
