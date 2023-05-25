@@ -52,6 +52,34 @@ body {
     margin: 20px 20px;
 }
 
+.various_links {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.various_link {
+    display: inline;
+}
+.various_link > a {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.link_select {
+    font-weight: 700;
+}
+.kiban_pagination {
+    display: flex;
+}
+.kiban_pagination > .pagination {
+    margin: 0 auto;
+}
+.kiban_pagination > .pagination > span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 .inquiry-new-thread-title textarea {
     width: 80%;
 }

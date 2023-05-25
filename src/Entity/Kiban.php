@@ -144,6 +144,18 @@ class Kiban
 
         return $this;
     }
+    
+    public function getUpdateDate(): ?\DateTimeInterface
+    {
+        return $this->update_date;
+    }
+
+    public function setUpdateDate(?\DateTimeInterface $update_date): self
+    {
+        $this->update_date = $update_date;
+
+        return $this;
+    }
 
     public function getPartsno(): ?string
     {

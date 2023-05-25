@@ -13,23 +13,136 @@
             </a>
             <h1>{{ various }}</h1>
         </h1>
+        <div class="various_links">
+            種類でフィルタ<i class="bi bi-arrow-right"></i>
+            {# sorting of properties based on query components #}
+            {% for various_link in various_list %}
+                <div class="various_link">
+                    {% if various_link == various %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'various':''}) ) }}" class ="link_select">
+                            {{ various_link }}
+                        </a>                        
+                    {% else %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'various':various_link}) ) }}" >
+                            {{ various_link }}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="various_links">
+            振替可否<i class="bi bi-arrow-right"></i>
+            {% for furikae_link in furikae_list %}
+                <div class="various_link">
+                    {% if furikae_link == app.request.query.get('furikae') %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'furikae':''}) ) }}" class="link_select" >
+                            {{ furikae_link }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'furikae':furikae_link}) ) }}">
+                            {{ furikae_link }}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="various_links">
+            使用状況<i class="bi bi-arrow-right"></i>
+            {% for status_link in status_list %}
+                <div class="various_link">
+                    {% if status_link == app.request.query.get('status') %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'status':''}) ) }}" class="link_select">
+                            {{ status_link }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url('app_kiban_index',app.request.query.all|merge({'status':status_link}) ) }}">
+                            {{ status_link }}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            Total {{ pagination.getTotalItemCount }}　
+            <a href="{{ path('app_kiban_new') }}">新規基板登録</a>
 
+        </div>
+        <div class="kiban_pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>基板種類</th>
-                    <th>パーツ番号</th>
-                    <th>シリアル番号</th>
-                    <th>振替可否</th>
-                    <th>使用状況</th>
-                    <th>割当部署担当者</th>
-                    <th>操作</th>
+                    <th>
+                        ID
+                        {% if pagination.isSorted('k.id') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.id', {'class':'bi bi-sort-numeric-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.id', {'class':'bi bi-sort-numeric-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        基板種類
+                        {% if pagination.isSorted('k.various') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.various', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.various', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        パーツ番号
+                        {% if pagination.isSorted('k.partsno') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.partsno', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.partsno', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        シリアル番号
+                        {% if pagination.isSorted('k.serialno') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.serialno', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.serialno', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        振替可否
+                        {% if pagination.isSorted('k.furikae') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.furikae', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.furikae', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        使用状況
+                        {% if pagination.isSorted('k.status') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.status', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.status', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        割当部署担当者
+                        {% if pagination.isSorted('k.person') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.person', {'class':'bi bi-sort-alpha-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.person', {'class':'bi bi-sort-alpha-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th>
+                        情報更新日
+                        {% if pagination.isSorted('k.update_date') and app.request.query.get('direction') == 'asc' %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.update_date', {'class':'bi bi-sort-numeric-up'}) }}
+                        {% else %}
+                            {{ knp_pagination_sortable(pagination, '', 'k.update_date', {'class':'bi bi-sort-numeric-down'}) }}
+                        {% endif %}
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {% if kibans|length > 0 %}
-                    {% for kiban in kibans %}
+                {% if pagination|length > 0 %}
+                    {% for kiban in pagination %}
                         <tr>
                             <td>{{ kiban.id }}</td>
                             <td>{{ kiban.various }}</td>
@@ -38,6 +151,7 @@
                             <td>{{ kiban.furikae }}</td>
                             <td>{{ kiban.status }}</td>
                             <td>{{ kiban.person }}</td>
+                            <td>{{ kiban.UpdateDate ? kiban.UpdateDate|date('Y-m-d') : '' }}</td>
                             <td>
                                 <a href="{{ path('app_kiban_show', {'id': kiban.id}) }}">詳細</a>
                             </td>
@@ -50,6 +164,10 @@
                 {% endif %}
             </tbody>
         </table>
-        <a href="{{ path('app_kiban_new') }}">新規基板登録</a>
+        <div class="kiban_pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}
+
+
