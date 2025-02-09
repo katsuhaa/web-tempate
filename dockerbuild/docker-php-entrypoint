@@ -8,7 +8,7 @@ if [ -n "${GROUP_ID}" ]; then
     groupmod -g ${GROUP_ID} www-data
 fi
 
-if [ ! -d /var/www/html/vendor/bin ]; then
+if [ ! -d ${APACHE_DOCUMENT_ROOT}/vendor/bin ]; then
     composer -n require symfony/console
     composer install \
         --no-scripts \
@@ -19,17 +19,17 @@ if [ ! -d /var/www/html/vendor/bin ]; then
     chown -R www-data: vendor
 fi
 
-bin/console doctrine:query:sql 'select * from dtb_base_info' > /dev/null 2>&1 || (
-    if [ -z ${DATABASE_URL} ]; then
-        cp .env.dist .env
-    fi
+if [ ! -e ${APACHE_DOCUMENT_ROOT}/.install ]; then
+    touch ${APACHE_DOCUMENT_ROOT}/.install
+    cp ${APACHE_DOCUMENT_ROOT}/.env.dist ${APACHE_DOCUMENT_ROOT}/.env
+   
     composer run-script installer-scripts
     composer run-script auto-scripts
-    find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or -print0 \
+    find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or \( -path ${APACHE_DOCUMENT_ROOT}/.git -prune \) -or -print0 \
         | xargs -0 chown www-data:www-data
-    find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or \( -type d -print0 \) \
-      | xargs -0 chmod g+s
-)
+    find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or \( -path ${APACHE_DOCUMENT_ROOT}/.git -prune \) -or \( -type d -print0 \) \
+        | xargs -0 chmod g+s
+fi
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then

@@ -33,18 +33,11 @@ RUN apt update \
   && locale-gen \
   ;
 
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-  && docker-php-ext-install -j$(nproc) zip gd mysqli pdo_mysql opcache intl pgsql pdo_pgsql \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install -j$(nproc) zip gd mysqli pdo_mysql opcache intl  \
   ;
 
 RUN pecl install apcu && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apc.ini
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-  && apt update \
-  && apt install -y nodejs \
-  && apt clean \
-  ;
 
 RUN mkdir -p ${APACHE_DOCUMENT_ROOT} \
   && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
@@ -72,9 +65,11 @@ COPY . ${APACHE_DOCUMENT_ROOT}
 WORKDIR ${APACHE_DOCUMENT_ROOT}
 
 RUN find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or -print0 \
-  | xargs -0 chown www-data:www-data \
-  && find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or \( -type d -print0 \) \
-  | xargs -0 chmod g+s \
-  ;
+    | xargs -0 chown www-data:www-data \
+    && find ${APACHE_DOCUMENT_ROOT} \( -path ${APACHE_DOCUMENT_ROOT}/vendor -prune \) -or \( -type d -print0 \) \
+    | xargs -0 chmod g+s \
+    ;
+
+RUN git config --global --add safe.directory ${APACHE_DOCUMENT_ROOT}
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=30 CMD pgrep apache
