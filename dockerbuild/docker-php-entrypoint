@@ -9,7 +9,7 @@ if [ -n "${GROUP_ID}" ]; then
 fi
 
 if [ ! -d ${APACHE_DOCUMENT_ROOT}/vendor/bin ]; then
-    composer -n require symfony/console
+    composer -n require symfony/console "6.1.*"
     composer install \
         --no-scripts \
         --no-autoloader \
