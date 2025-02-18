@@ -26,7 +26,6 @@ services:
       - 443:443
     volumes:
       - "var:/var/www/html/var"
-      - "vendor:/var/www/html/vendor"
       - "node_modules:/var/www/html/node_modules"
       - ".:/var/www/html:cached"
     depends_on:
