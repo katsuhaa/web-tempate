@@ -27,10 +27,8 @@
 bin
 compose.override.yaml
 composer.lock
-config
 migrations
 phpunit.xml.dist
 symfony.lock
 tests
-translations
 phpmyadmin
